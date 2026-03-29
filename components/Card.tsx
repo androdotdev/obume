@@ -102,7 +102,7 @@ export default function Card() {
             <div className="w-full h-full rounded-full overflow-hidden flex items-center justify-center">
               <img src={PROFILE.avatar} alt={PROFILE.name} className="w-full h-full object-cover" />
             </div>
-            <div className="absolute bottom-1 right-1 w-5.5 h-5.5 rounded-full bg-gradient-to-br from-purple-500 to-violet-700 flex items-center justify-center border-2 border-[#0c0c14] text-[11px] text-white">
+            <div className="absolute bottom-1 right-1 w-5.5 h-5.5 rounded-full bg-linear-to-br from-purple-500 to-violet-700 flex items-center justify-center border-2 border-[#0c0c14] text-[11px] text-white">
               ✓
             </div>
           </div>

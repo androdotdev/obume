@@ -30,34 +30,32 @@ export default function Works() {
   const categories = [...new Set(works.map((w) => w.category))];
 
   return (
-    <div className="fixed inset-0 z-10 overflow-y-auto">
-      <div className="min-h-full flex flex-col items-center px-4 sm:px-6 pt-16 sm:pt-10">
-        <div className="flex-1 w-full max-w-5xl">
-          <Header
-            title="Works"
-            backHref="/"
-            subtitle={`${filtered.length} of ${works.length} projects`}
-          />
+    <div className="min-h-screen flex flex-col items-center px-5 md:px-6 py-24 md:py-10">
+      <div className="flex-1 w-full max-w-5xl">
+        <Header
+          title="Works"
+          backHref="/"
+          subtitle={`${filtered.length} of ${works.length} projects`}
+        />
 
-          <div className="h-px mb-6 sm:mb-7 bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+        <div className="h-px mb-6 md:mb-7 bg-linear-to-r from-transparent via-white/10 to-transparent" />
 
-          {loading ? (
-            <div className="text-center text-slate-500 py-12">Loading...</div>
-          ) : (
-            <>
-              <WorksFilter
-                categories={categories}
-                activeCategory={activeCategory}
-                onCategoryChange={setActiveCategory}
-                counts={{ total: works.length, filtered: filtered.length }}
-              />
-              <WorksGrid works={filtered} />
-            </>
-          )}
-        </div>
-
-        <Footer />
+        {loading ? (
+          <div className="text-center text-slate-500 py-12">Loading...</div>
+        ) : (
+          <>
+            <WorksFilter
+              categories={categories}
+              activeCategory={activeCategory}
+              onCategoryChange={setActiveCategory}
+              counts={{ total: works.length, filtered: filtered.length }}
+            />
+            <WorksGrid works={filtered} />
+          </>
+        )}
       </div>
+
+      <Footer />
     </div>
   );
 }

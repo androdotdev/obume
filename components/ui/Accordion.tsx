@@ -40,11 +40,11 @@ export function Accordion({
             }`}
           >
             <div
-              className={`flex items-center gap-3 sm:gap-4 px-5 py-4 ${isOpen ? "border-b border-white/5" : ""}`}
+              className={`flex items-center gap-3 sm:gap-4 px-5 py-5 md:py-4 ${isOpen ? "border-b border-white/5" : ""}`}
             >
               <span className="text-lg">{item.icon}</span>
               <span
-                className={`flex-1 text-[15px] font-semibold font-serif transition-colors duration-200 ${
+                className={`flex-1 text-[16px] md:text-[15px] font-semibold font-serif transition-colors duration-200 ${
                   isOpen ? "text-slate-100" : "text-slate-300"
                 }`}
               >
@@ -59,7 +59,7 @@ export function Accordion({
               </span>
             </div>
 
-            {isOpen && <div className="px-5 py-4">{item.content}</div>}
+            {isOpen && <div className="px-5 py-5">{item.content}</div>}
           </div>
         );
       })}

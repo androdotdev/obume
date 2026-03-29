@@ -65,26 +65,24 @@ const TERMS = [
 
 export default function Terms() {
   return (
-    <div className="fixed inset-0 z-10 overflow-y-auto">
-      <div className="min-h-full flex flex-col items-center px-4 sm:px-6 pt-16 sm:pt-10">
-        <div className="flex-1 w-full max-w-2xl">
-          <Header title="Terms" backHref="/" subtitle={`${TERMS.length} policies`} />
+    <div className="min-h-screen flex flex-col items-center px-5 md:px-6 py-24 md:py-10">
+      <div className="flex-1 w-full max-w-2xl">
+        <Header title="Terms" backHref="/" subtitle={`${TERMS.length} policies`} />
 
-          <Accordion items={TERMS} />
+        <Accordion items={TERMS} />
 
-          <div className="mt-8 pt-6 border-t border-white/5 flex flex-col items-center gap-4">
-            <Link
-              href="/services"
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-[14px] border border-purple-500/30 bg-purple-500/10 text-purple-400 text-[13px] no-underline transition-all duration-220 hover:bg-purple-500/20"
-            >
-              <FaTools className="text-[11px]" />
-              <span>Services</span>
-            </Link>
-          </div>
+        <div className="mt-8 pt-6 border-t border-white/5 flex flex-col items-center gap-4">
+          <Link
+            href="/services"
+            className="inline-flex items-center gap-2 px-5 py-3 rounded-[14px] border border-purple-500/30 bg-purple-500/10 text-purple-400 text-[14px] md:text-[13px] no-underline transition-all duration-220 hover:bg-purple-500/20"
+          >
+            <FaTools className="text-[11px]" />
+            <span>Services</span>
+          </Link>
         </div>
-
-        <Footer className="max-w-2xl" />
       </div>
+
+      <Footer className="max-w-2xl" />
     </div>
   );
 }

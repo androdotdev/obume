@@ -29,14 +29,14 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#07070f] p-4">
+    <div className="min-h-screen flex items-center justify-center bg-[#07070f] p-5 md:p-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <h1 className="text-2xl font-bold text-slate-100 font-serif">Admin Login</h1>
+          <h1 className="text-2xl md:text-2xl font-bold text-slate-100 font-serif">Admin Login</h1>
           <p className="text-slate-500 text-sm mt-2">Sign in to manage your portfolio</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-5">
           <div>
             <label className="block text-sm text-slate-400 mb-2">Email</label>
             <input
@@ -44,7 +44,7 @@ export default function Login() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-slate-200 placeholder-slate-500 focus:outline-none focus:border-purple-500/50 focus:bg-white/8 transition-all"
+              className="w-full px-5 py-4 rounded-xl bg-white/5 border border-white/10 text-slate-200 placeholder-slate-500 focus:outline-none focus:border-purple-500/50 focus:bg-white/8 transition-all text-base"
               placeholder="admin@example.com"
             />
           </div>
@@ -56,7 +56,7 @@ export default function Login() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-slate-200 placeholder-slate-500 focus:outline-none focus:border-purple-500/50 focus:bg-white/8 transition-all"
+              className="w-full px-5 py-4 rounded-xl bg-white/5 border border-white/10 text-slate-200 placeholder-slate-500 focus:outline-none focus:border-purple-500/50 focus:bg-white/8 transition-all text-base"
               placeholder="••••••••"
             />
           </div>
@@ -68,7 +68,7 @@ export default function Login() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 rounded-xl bg-gradient-to-r from-purple-600 to-violet-600 text-white font-medium hover:from-purple-500 hover:to-violet-500 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full py-4 rounded-xl bg-gradient-to-r from-purple-600 to-violet-600 text-white font-medium hover:from-purple-500 hover:to-violet-500 transition-all disabled:opacity-50 disabled:cursor-not-allowed text-base"
           >
             {loading ? "Signing in..." : "Sign In"}
           </button>
