@@ -3,8 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Obume - Video Editor",
-  description:
-    "Turning raw footage into something people actually want to watch.",
+  description: "Turning raw footage into something people actually want to watch.",
 };
 
 export default function RootLayout({
@@ -27,7 +26,7 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body>{children}</body>
+      <body className="bg-[#07070f] antialiased">{children}</body>
     </html>
   );
 }

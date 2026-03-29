@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 interface LinkData {
   label: string;
@@ -17,10 +18,23 @@ interface LinkButtonProps {
   onLeave: () => void;
   delay: number;
   mounted: boolean;
+  prefetch?: boolean;
+  prefetchFn?: () => void;
 }
 
-export default function LinkButton({ link, hovered, onEnter, onLeave, delay, mounted }: LinkButtonProps) {
+export default function LinkButton({ 
+  link, 
+  hovered, 
+  onEnter, 
+  onLeave, 
+  delay, 
+  mounted,
+  prefetch = false,
+  prefetchFn 
+}: LinkButtonProps) {
   const [visible, setVisible] = useState(false);
+  const router = useRouter();
+  const hasPrefetched = useRef(false);
   const Icon = link.icon as React.ComponentType<{ className?: string; style?: React.CSSProperties }>;
 
   useEffect(() => {
@@ -29,6 +43,19 @@ export default function LinkButton({ link, hovered, onEnter, onLeave, delay, mou
       return () => clearTimeout(t);
     }
   }, [mounted, delay]);
+
+  useEffect(() => {
+    if (hovered && prefetch && !hasPrefetched.current) {
+      hasPrefetched.current = true;
+      router.prefetch(link.href);
+      if (prefetchFn) {
+        prefetchFn();
+      }
+    }
+    if (!hovered) {
+      hasPrefetched.current = false;
+    }
+  }, [hovered, prefetch, link.href, router, prefetchFn]);
 
   return (
     <Link

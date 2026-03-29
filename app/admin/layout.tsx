@@ -46,16 +46,16 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       <aside
         className={`
           fixed md:static inset-y-0 left-0 z-50
-          w-72 bg-black/40 md:bg-black/20
-          border-r border-white/5 p-8
+          w-64 bg-black/40 md:bg-black/20
+          border-r border-white/5 p-6
           transform transition-transform duration-300 ease-in-out
           ${sidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
-          pt-20 md:pt-8
+          pt-16 md:pt-6
         `}
       >
-        <h1 className="text-2xl font-bold text-slate-100 font-serif mb-10 hidden md:block">Admin</h1>
+        <h1 className="text-xl font-bold text-slate-100 font-serif mb-8 hidden md:block">Admin</h1>
 
-        <nav className="space-y-3">
+        <nav className="space-y-2">
           {navItems.map((item) => {
             const isActive = pathname === item.href;
             return (
@@ -64,24 +64,24 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 href={item.href}
                 onClick={() => setSidebarOpen(false)}
                 className={`
-                  flex items-center gap-4 px-5 py-4 rounded-xl transition-all
+                  flex items-center gap-3 px-4 py-3 rounded-xl transition-all
                   ${isActive
                     ? "bg-purple-500/20 text-purple-400"
                     : "text-slate-400 hover:text-slate-200 hover:bg-white/5"
                   }
                 `}
               >
-                <item.icon className="text-base" />
-                <span className="text-base">{item.label}</span>
+                <item.icon className="text-sm" />
+                <span className="text-sm">{item.label}</span>
               </Link>
             );
           })}
         </nav>
 
-        <div className="mt-auto pt-8 border-t border-white/5">
+        <div className="mt-auto pt-6 border-t border-white/5">
           <button
             onClick={handleLogout}
-            className="w-full px-5 py-4 rounded-xl text-slate-400 hover:text-red-400 hover:bg-red-500/10 transition-all text-base text-left"
+            className="w-full px-4 py-3 rounded-xl text-slate-400 hover:text-red-400 hover:bg-red-500/10 transition-all text-sm text-left"
           >
             Sign Out
           </button>
@@ -89,7 +89,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       </aside>
 
       {/* Main content */}
-      <main className="flex-1 p-6 md:p-10 pt-20 md:pt-10 overflow-auto">
+      <main className="flex-1 p-4 md:p-8 pt-20 md:pt-8 overflow-auto">
         {children}
       </main>
     </div>

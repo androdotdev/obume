@@ -29,22 +29,22 @@ export function VideoModal({ isOpen, onClose, videoUrl, category }: VideoModalPr
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm"
       onClick={onClose}
     >
-      <div className="relative w-full h-full max-w-[95vw] max-h-[95vh] p-6 md:p-10" onClick={(e) => e.stopPropagation()}>
+      <div className="relative w-full h-full max-w-[95vw] max-h-[95vh] p-4 md:p-8" onClick={(e) => e.stopPropagation()}>
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 md:top-6 md:right-6 z-10 p-4 rounded-full bg-white/10 hover:bg-white/20 text-white transition-all"
+          className="absolute top-2 right-2 md:top-4 md:right-4 z-10 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-all"
         >
-          <FaTimes className="text-xl" />
+          <FaTimes className="text-lg" />
         </button>
 
-        <div className="w-full h-full flex flex-col items-center justify-center gap-5">
+        <div className="w-full h-full flex flex-col items-center justify-center gap-4">
           <video
             src={videoUrl}
             autoPlay
             loop
-            className="w-full h-full object-contain rounded-xl"
+            className="w-full h-full object-contain rounded-lg"
           />
-          <p className="text-white/70 text-base font-medium">{category}</p>
+          <p className="text-white/70 text-sm font-medium">{category}</p>
         </div>
       </div>
     </div>

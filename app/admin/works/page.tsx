@@ -77,11 +77,11 @@ export default function AdminWorks() {
 
   return (
     <div>
-      <h1 className="text-2xl md:text-3xl font-bold text-slate-100 font-serif mb-8 md:mb-10">Manage Works</h1>
-      <p className="text-base text-slate-500 mb-8">Upload videos to Cloudinary. Videos will be stored and streamed from Cloudinary.</p>
+      <h1 className="text-xl md:text-2xl font-bold text-slate-100 font-serif mb-6 md:mb-8">Manage Works</h1>
+      <p className="text-sm text-slate-500 mb-6">Upload videos to Cloudinary. Videos will be stored and streamed from Cloudinary.</p>
 
-      <form onSubmit={handleUpload} className="mb-10 p-5 md:p-7 rounded-3xl bg-white/5 border border-white/5">
-        <h2 className="text-lg md:text-xl font-semibold text-slate-200 mb-5">Upload New Video</h2>
+      <form onSubmit={handleUpload} className="mb-8 p-4 md:p-6 rounded-2xl bg-white/5 border border-white/5">
+        <h2 className="text-base md:text-lg font-semibold text-slate-200 mb-4">Upload New Video</h2>
 
         <div className="grid gap-4">
           <div>
@@ -118,18 +118,18 @@ export default function AdminWorks() {
         </div>
       </form>
 
-        <div className="space-y-5">
+        <div className="space-y-4">
           {works.length === 0 ? (
-            <div className="text-center text-slate-500 py-10">No works yet. Upload your first video above.</div>
+            <div className="text-center text-slate-500 py-8">No works yet. Upload your first video above.</div>
           ) : (
             works.map((work) => (
-              <div key={work.id} className="flex flex-col sm:flex-row items-start sm:items-center gap-4 p-5 rounded-xl bg-white/5 border border-white/5">
+              <div key={work.id} className="flex flex-col sm:flex-row items-start sm:items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/5">
                 <div className="flex-1 w-full">
-                  <p className="text-slate-200 font-medium text-base">{work.category}</p>
+                  <p className="text-slate-200 font-medium">{work.category}</p>
                 </div>
                 <button
                   onClick={() => handleDelete(work.id)}
-                  className="px-5 py-2.5 rounded-lg bg-red-500/20 text-red-400 hover:bg-red-500/30 transition-all text-sm whitespace-nowrap"
+                  className="px-4 py-2 rounded-lg bg-red-500/20 text-red-400 hover:bg-red-500/30 transition-all text-sm whitespace-nowrap"
                 >
                   Delete
                 </button>

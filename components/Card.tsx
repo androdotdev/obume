@@ -14,7 +14,7 @@ const PROFILE = {
 };
 
 const LINKS = [
-  { label: "Past Works", href: "/works", icon: FaGlobe, accent: "#6EE7B7" },
+  { label: "Works", href: "/works", icon: FaGlobe, accent: "#6EE7B7", prefetch: true },
   { label: "Services Offered", href: "/services", icon: FaScrewdriverWrench, accent: "#F87171" },
   { label: "Send me an Email", href: "mailto:obume.hq@gmail.com", icon: FaEnvelope, accent: "#93C5FD" },
 ];
@@ -71,8 +71,8 @@ export default function Card() {
           : "transform 0.7s cubic-bezier(.22,1,.36,1), opacity 1s ease",
         position: "relative",
         width: "100%",
-        maxWidth: 480,
-        borderRadius: 32,
+        maxWidth: 420,
+        borderRadius: 28,
         background: "rgba(12, 12, 20, 0.82)",
         backdropFilter: "blur(28px) saturate(180%)",
         WebkitBackdropFilter: "blur(28px) saturate(180%)",
@@ -96,9 +96,9 @@ export default function Card() {
         }}
       />
 
-      <div style={{ position: "relative", zIndex: 2, padding: "48px 44px 40px" }}>
+      <div style={{ position: "relative", zIndex: 2, padding: "40px 36px 32px" }}>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-          <div className="relative w-36 h-36 mb-5">
+          <div className="relative w-32 h-32 mb-4.5">
             <div className="w-full h-full rounded-full overflow-hidden flex items-center justify-center">
               <img src={PROFILE.avatar} alt={PROFILE.name} className="w-full h-full object-cover" />
             </div>
@@ -107,7 +107,7 @@ export default function Card() {
             </div>
           </div>
 
-          <h1 className="m-0 font-serif text-3xl font-bold text-slate-100 tracking-tight text-center">
+          <h1 className="m-0 font-serif text-2xl font-bold text-slate-100 tracking-tight text-center">
             {PROFILE.name}
           </h1>
 
@@ -118,7 +118,7 @@ export default function Card() {
             </span>
           </div>
 
-          <p className="font-sans text-sm text-slate-500 text-center leading-relaxed mt-4 mb-0 max-w-80">
+          <p className="font-sans text-[13.5px] text-slate-500 text-center leading-relaxed mt-3.5 mb-0 max-w-77.5">
             {PROFILE.bio}
           </p>
         </div>
@@ -126,12 +126,12 @@ export default function Card() {
         <div
           style={{
             height: 1,
-            margin: "36px 0",
+            margin: "28px 0",
             background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.07), transparent)",
           }}
         />
 
-        <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
           {LINKS.map((link, i) => (
             <LinkButton
               key={i}
@@ -141,11 +141,12 @@ export default function Card() {
               onLeave={() => setHovered(null)}
               delay={i * 70}
               mounted={mounted}
+              prefetch={"prefetch" in link ? link.prefetch : false}
             />
           ))}
         </div>
 
-        <div style={{ display: "flex", justifyContent: "center", gap: 20, marginTop: 36 }}>
+        <div style={{ display: "flex", justifyContent: "center", gap: 14, marginTop: 28 }}>
           {SOCIALS.map((s, i) => {
             const Icon = s.icon;
             return (
@@ -156,8 +157,8 @@ export default function Card() {
                 rel="noopener noreferrer"
                 aria-label={s.label}
                 style={{
-                  width: 44,
-                  height: 44,
+                  width: 38,
+                  height: 38,
                   borderRadius: "50%",
                   background: "rgba(255,255,255,0.05)",
                   border: "1px solid rgba(255,255,255,0.08)",
@@ -165,7 +166,7 @@ export default function Card() {
                   alignItems: "center",
                   justifyContent: "center",
                   color: "#94A3B8",
-                  fontSize: 18,
+                  fontSize: 15,
                   textDecoration: "none",
                   transition: "all 0.22s ease",
                 }}
