@@ -77,10 +77,10 @@ export default function ThreeBackground() {
         window.addEventListener("resize", onResize, { passive: true });
 
         let raf: number;
-        const clock = new THREE.Clock();
+        const startTime = performance.now();
         const animate = () => {
             raf = requestAnimationFrame(animate);
-            const t = clock.getElapsedTime();
+            const t = (performance.now() - startTime) / 1000;
             
             mx += (targetX - mx) * 0.03;
             my += (targetY - my) * 0.03;
