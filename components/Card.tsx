@@ -3,8 +3,14 @@
 import { useEffect, useRef, useState } from "react";
 import { HiSparkles } from "react-icons/hi2";
 import { FaGlobe, FaEnvelope } from "react-icons/fa";
-import { FaXTwitter, FaDiscord, FaInstagram, FaScrewdriverWrench } from "react-icons/fa6";
+import {
+  FaXTwitter,
+  FaDiscord,
+  FaInstagram,
+  FaScrewdriverWrench,
+} from "react-icons/fa6";
 import LinkButton from "./LinkButton";
+import Link from "next/link";
 
 const PROFILE = {
   name: "Obume",
@@ -14,15 +20,39 @@ const PROFILE = {
 };
 
 const LINKS = [
-  { label: "Works", href: "/works", icon: FaGlobe, accent: "#6EE7B7", prefetch: true },
-  { label: "Services Offered", href: "/services", icon: FaScrewdriverWrench, accent: "#F87171" },
-  { label: "Send me an Email", href: "mailto:obume.hq@gmail.com", icon: FaEnvelope, accent: "#93C5FD" },
+  {
+    label: "Works",
+    href: "/works",
+    icon: FaGlobe,
+    accent: "#6EE7B7",
+    prefetch: true,
+  },
+  {
+    label: "Services Offered",
+    href: "/services",
+    icon: FaScrewdriverWrench,
+    accent: "#F87171",
+  },
+  {
+    label: "Send me an Email",
+    href: "mailto:obume.hq@gmail.com",
+    icon: FaEnvelope,
+    accent: "#93C5FD",
+  },
 ];
 
 const SOCIALS = [
   { icon: FaXTwitter, href: "https://x.com/ObumeHq", label: "Twitter" },
-  { icon: FaDiscord, href: "https://discord.com/users/1484088863482839050", label: "Discord" },
-  { icon: FaInstagram, href: "https://www.instagram.com/obume.hq", label: "Instagram" },
+  {
+    icon: FaDiscord,
+    href: "https://discord.com/users/1484088863482839050",
+    label: "Discord",
+  },
+  {
+    icon: FaInstagram,
+    href: "https://www.instagram.com/obume.hq",
+    label: "Instagram",
+  },
 ];
 
 export default function Card() {
@@ -77,7 +107,8 @@ export default function Card() {
         backdropFilter: "blur(28px) saturate(180%)",
         WebkitBackdropFilter: "blur(28px) saturate(180%)",
         border: "1px solid rgba(255,255,255,0.10)",
-        boxShadow: "0 32px 80px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.04) inset",
+        boxShadow:
+          "0 32px 80px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.04) inset",
         overflow: "hidden",
         padding: 0,
         willChange: "transform",
@@ -96,11 +127,23 @@ export default function Card() {
         }}
       />
 
-      <div style={{ position: "relative", zIndex: 2, padding: "40px 36px 32px" }}>
-        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+      <div
+        style={{ position: "relative", zIndex: 2, padding: "40px 36px 32px" }}
+      >
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
           <div className="relative w-32 h-32 mb-4.5">
             <div className="w-full h-full rounded-full overflow-hidden flex items-center justify-center">
-              <img src={PROFILE.avatar} alt={PROFILE.name} className="w-full h-full object-cover" />
+              <img
+                src={PROFILE.avatar}
+                alt={PROFILE.name}
+                className="w-full h-full object-cover"
+              />
             </div>
             <div className="absolute bottom-1 right-1 w-5.5 h-5.5 rounded-full bg-linear-to-br from-purple-500 to-violet-700 flex items-center justify-center border-2 border-[#0c0c14] text-[11px] text-white">
               ✓
@@ -127,7 +170,8 @@ export default function Card() {
           style={{
             height: 1,
             margin: "28px 0",
-            background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.07), transparent)",
+            background:
+              "linear-gradient(90deg, transparent, rgba(255,255,255,0.07), transparent)",
           }}
         />
 
@@ -146,7 +190,14 @@ export default function Card() {
           ))}
         </div>
 
-        <div style={{ display: "flex", justifyContent: "center", gap: 14, marginTop: 28 }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            gap: 14,
+            marginTop: 28,
+          }}
+        >
           {SOCIALS.map((s, i) => {
             const Icon = s.icon;
             return (
@@ -189,7 +240,9 @@ export default function Card() {
           }}
         >
           Made with <span style={{ color: "#F472B6" }}>♥</span> ·{" "}
-          <span style={{ color: "#F472B6" }}>Obume.hq</span>
+          <span style={{ color: "#F472B6" }}>
+            <Link href="/admin">Obume.hq</Link>
+          </span>
         </p>
       </div>
     </div>
