@@ -4,6 +4,7 @@ import { useMemo } from "react";
 import {
   DndContext,
   closestCenter,
+  TouchSensor,
   PointerSensor,
   useSensor,
   useSensors,
@@ -46,6 +47,12 @@ export function WorksList({
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: { distance: 5 },
+    }),
+    useSensor(TouchSensor, {
+      activationConstraint: {
+        delay: 250,
+        tolerance: 5,
+      },
     }),
   );
 
