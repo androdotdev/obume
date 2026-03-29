@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import ThreeBackground from "@/components/ThreeBackground";
 
 export const metadata: Metadata = {
   title: "Obume - Video Editor",
@@ -26,7 +27,10 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="bg-[#07070f] antialiased">{children}</body>
+      <body className="bg-[#07070f] antialiased">
+        <ThreeBackground />
+        {children}
+      </body>
     </html>
   );
 }

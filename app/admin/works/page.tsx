@@ -4,8 +4,6 @@ import { useState, useEffect } from "react";
 import { getWorks, createWork, deleteWork } from "@/app/actions/works";
 import { uploadToCloudinary } from "@/app/actions/upload";
 
-const CATEGORIES = ["Motion Graph", "Speed Remapping", "Talking-Head", "Gaming Short"];
-
 interface Work {
   id: number;
   category: string;
@@ -16,7 +14,7 @@ export default function AdminWorks() {
   const [works, setWorks] = useState<Work[]>([]);
   const [loading, setLoading] = useState(true);
   const [uploading, setUploading] = useState(false);
-  const [category, setCategory] = useState("Motion Graph");
+  const [category, setCategory] = useState("");
 
   useEffect(() => {
     fetchWorks();
@@ -57,7 +55,7 @@ export default function AdminWorks() {
 
       if (result.success) {
         fetchWorks();
-        setCategory("Motion Graph");
+        setCategory("");
         e.currentTarget.reset();
       }
     } catch (error) {
@@ -97,15 +95,14 @@ export default function AdminWorks() {
 
           <div>
             <label className="block text-sm text-slate-400 mb-2">Category</label>
-            <select
+            <input
+              type="text"
               value={category}
               onChange={(e) => setCategory(e.target.value)}
-              className="w-full px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-slate-200 focus:outline-none focus:border-purple-500/50"
-            >
-              {CATEGORIES.map((cat) => (
-                <option key={cat} value={cat}>{cat}</option>
-              ))}
-            </select>
+              placeholder="e.g. Motion Graph, Gaming Short"
+              required
+              className="w-full px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-slate-200 placeholder-slate-600 focus:outline-none focus:border-purple-500/50"
+            />
           </div>
 
           <button
