@@ -1,7 +1,6 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { logout } from "@/app/actions/auth";
 import Link from "next/link";
 
 export default function AdminLayout({
@@ -12,7 +11,7 @@ export default function AdminLayout({
   const router = useRouter();
 
   const handleLogout = async () => {
-    await logout();
+    await fetch("/api/auth/logout", { method: "POST" });
     router.push("/login");
   };
 

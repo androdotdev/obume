@@ -2,7 +2,7 @@
 
 import { db } from "@/lib/db";
 import { works } from "@/db/schema";
-import { eq, asc } from "drizzle-orm";
+import { asc, eq } from "drizzle-orm";
 
 export async function getWorks() {
   try {

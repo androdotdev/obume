@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { login } from "@/app/actions/auth";
 
 export default function Login() {
   const router = useRouter();
@@ -17,10 +16,16 @@ export default function Login() {
     setError("");
     setLoading(true);
 
-    const result = await login(email, password);
+    const res = await fetch("/api/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
+    });
 
-    if (result.error) {
-      setError(result.error);
+    const result = await res.json();
+
+    if (!res.ok) {
+      setError(result.error || "Login failed");
       setLoading(false);
       return;
     }

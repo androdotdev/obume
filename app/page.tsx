@@ -1,9 +1,25 @@
-import Card from "@/components/Card";
+import { Navbar } from "@/components/Navbar";
+import { Hero } from "@/components/Hero";
+import { Marquee } from "@/components/Marquee";
+import { Portfolio } from "@/components/Portfolio";
+import { Services } from "@/components/Services";
+import { WhyChoose } from "@/components/WhyChoose";
+import { About } from "@/components/About";
+import { Contact } from "@/components/Contact";
+import { Footer } from "@/components/Footer";
 
 export default function Home() {
   return (
-    <div className="fixed inset-0 flex items-center justify-center p-5 overflow-hidden">
-      <Card />
-    </div>
+    <main className="min-h-screen">
+      <Navbar />
+      <Hero />
+      <Marquee />
+      <Portfolio />
+      <Services />
+      <WhyChoose />
+      <About />
+      <Contact />
+      <Footer />
+    </main>
   );
 }
