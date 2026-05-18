@@ -48,10 +48,10 @@ export function Navbar() {
               <Image
                 src="/logo.png"
                 alt="obume"
-                width={60}
+                width={60} 
                 loading="eager"
                 height={60}
-                className="relative drop-shadow-[0_0_12px_rgba(255,255,255,0.8)]"
+                className="relative drop-shadow-[0_0_12px_rgba(255,255,255,0.8)] w-auto h-auto group-hover:scale-105 transition-transform"
               />
             </span>
             <span className="font-display font-semibold tracking-tight text-lg">
