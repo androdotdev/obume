@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export function Footer({ className }: { className?: string } = {}) {
   return (
     <footer className={`border-t border-border/60 py-10 ${className ?? ""}`}>
@@ -11,7 +13,17 @@ export function Footer({ className }: { className?: string } = {}) {
           </span>
           <span className="ml-2">&copy; {new Date().getFullYear()}</span>
         </div>
-        <a href="/admin" className="hover:text-foreground transition-colors">Crafted for creators who care about retention.</a>
+        <div className="flex items-center gap-6">
+          <Link href="/services" className="hover:text-foreground transition-colors">
+            Services
+          </Link>
+          <Link href="/terms" className="hover:text-foreground transition-colors">
+            Terms
+          </Link>
+          <a href="/admin" className="hover:text-foreground transition-colors">
+            Crafted for creators who care about retention.
+          </a>
+        </div>
       </div>
     </footer>
   );

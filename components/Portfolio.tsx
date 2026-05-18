@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { Play, X } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+import { Play, X, Loader2 } from "lucide-react";
 import { getWorks } from "@/app/actions/works";
 
 interface Work {
@@ -20,16 +20,16 @@ function getThumbnail(url: string | null): string {
 
 function getEmbedUrl(url: string | null): string {
   if (!url) return "";
-  return url.replace(
-    "/video/upload/",
-    "/video/upload/w_600,q_auto/",
-  );
+  return url.replace("/video/upload/", "/video/upload/w_400,q_auto/");
 }
 
 export function Portfolio() {
   const [works, setWorks] = useState<Work[]>([]);
   const [loading, setLoading] = useState(true);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [videoLoading, setVideoLoading] = useState(false);
+  const [playing, setPlaying] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     getWorks().then((data) => {
@@ -37,6 +37,27 @@ export function Portfolio() {
       setLoading(false);
     });
   }, []);
+
+  useEffect(() => {
+    if (openIndex === null) {
+      setPlaying(false);
+      setVideoLoading(false);
+    } else {
+      setVideoLoading(true);
+      setPlaying(false);
+    }
+  }, [openIndex]);
+
+  const togglePlay = () => {
+    if (!videoRef.current) return;
+    if (videoRef.current.paused) {
+      videoRef.current.play();
+      setPlaying(true);
+    } else {
+      videoRef.current.pause();
+      setPlaying(false);
+    }
+  };
 
   return (
     <section id="work" className="py-28 relative">
@@ -86,7 +107,8 @@ export function Portfolio() {
                     <img
                       src={thumb}
                       alt={item.category}
-                      loading="lazy"
+                      loading={i === 0 ? "eager" : "lazy"}
+                      fetchPriority={i === 0 ? "high" : undefined}
                       className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
                     />
                   ) : (
@@ -130,13 +152,29 @@ export function Portfolio() {
 
             {works[openIndex]?.cloudinaryUrl ? (
               <div className="aspect-[9/16] relative">
+                {videoLoading && (
+                  <div className="absolute inset-0 bg-black flex items-center justify-center z-10">
+                    <Loader2 className="h-8 w-8 text-primary animate-spin" />
+                  </div>
+                )}
                 <video
+                  ref={videoRef}
                   src={getEmbedUrl(works[openIndex].cloudinaryUrl)}
-                  controls
-                  autoPlay
+                  loop
                   playsInline
-                  className="absolute inset-0 h-full w-full object-contain bg-black"
+                  preload="metadata"
+                  onLoadedData={() => setVideoLoading(false)}
+                  onClick={togglePlay}
+                  className="absolute inset-0 h-full w-full object-contain bg-black cursor-pointer"
                 />
+                {playing && (
+                  <div
+                    className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-0 transition-opacity duration-300"
+                    style={{
+                      opacity: playing ? 0 : 1,
+                    }}
+                  />
+                )}
               </div>
             ) : (
               <div className="aspect-[9/16] relative bg-card grid place-items-center">

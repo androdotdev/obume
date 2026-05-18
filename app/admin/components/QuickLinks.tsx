@@ -1,10 +1,10 @@
 import Link from "next/link";
-import { FaExternalLinkAlt } from "react-icons/fa";
+import { ExternalLink } from "lucide-react";
 
 const LINKS = [
   { href: "/", label: "Home" },
-  { href: "/works", label: "Works Page" },
   { href: "/services", label: "Services Page" },
+  { href: "/terms", label: "Terms Page" },
 ];
 
 export function QuickLinks() {
@@ -19,7 +19,7 @@ export function QuickLinks() {
             className="inline-flex items-center gap-2 p-6 rounded-xl bg-white/5 border border-white/10 text-slate-300 hover:text-purple-400 hover:border-purple-500/30 transition-all text-sm"
           >
             <span>{link.label}</span>
-            <FaExternalLinkAlt className="text-[10px]" />
+            <ExternalLink className="text-[10px]" />
           </Link>
         ))}
       </div>
