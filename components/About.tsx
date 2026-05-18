@@ -1,9 +1,9 @@
 export function About() {
   const stats = [
-    { value: "10M+", label: "Views edited" },
-    { value: "150+", label: "Videos shipped" },
+    { value: "2M+", label: "Views edited" },
+    { value: "50+", label: "Videos shipped" },
     { value: "48h", label: "Avg turnaround" },
-    { value: "20+", label: "Creators served" },
+    { value: "20+", label: "Clients served" },
   ];
 
   return (

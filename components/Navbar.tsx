@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 const links = [
   { href: "#work", label: "Work" },
@@ -32,17 +33,26 @@ export function Navbar() {
         <nav
           className={cn(
             "flex items-center justify-between rounded-full px-5 py-3 transition-all duration-500",
-            scrolled
-              ? "glass shadow-card"
-              : "bg-transparent",
+            scrolled ? "glass shadow-card" : "bg-transparent",
           )}
         >
-          <a
-            href="#"
-            className="flex items-center gap-2 group"
-          >
-            <span className="h-7 w-7 rounded-md bg-gradient-primary grid place-items-center font-display font-bold text-primary-foreground shadow-glow group-hover:scale-105 transition-transform">
+          <a href="#" className="flex items-center gap-2 group">
+            {/* <span className="h-7 w-7 rounded-md bg-gradient-primary grid place-items-center font-display font-bold text-primary-foreground shadow-glow group-hover:scale-105 transition-transform">
               O
+            </span> */}
+            <span className="relative inline-flex items-center justify-center">
+              {/* Glow layers */}
+              <span className="absolute inset-0 rounded-full bg-violet-800 blur-sm scale-50" />
+              <span className="absolute inset-0 rounded-full bg-violet-800 blur-sm scale-50" />
+
+              <Image
+                src="/logo.png"
+                alt="obume"
+                width={60}
+                loading="eager"
+                height={60}
+                className="relative drop-shadow-[0_0_12px_rgba(255,255,255,0.8)]"
+              />
             </span>
             <span className="font-display font-semibold tracking-tight text-lg">
               obume

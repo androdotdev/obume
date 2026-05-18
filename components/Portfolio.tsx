@@ -68,7 +68,7 @@ export function Portfolio() {
               -- Selected Work
             </p>
             <h2 className="font-display text-4xl md:text-5xl font-bold tracking-tight max-w-xl">
-              Edits that earn the scroll.
+              Short-Form Edits.
             </h2>
           </div>
           <p className="text-muted-foreground max-w-sm">
@@ -122,11 +122,6 @@ export function Portfolio() {
                       <Play className="h-6 w-6 text-primary-foreground fill-primary-foreground ml-0.5" />
                     </div>
                   </div>
-                  <div className="absolute bottom-0 left-0 right-0 p-4 md:p-5 text-left">
-                    <span className="text-[10px] uppercase tracking-widest text-primary font-medium">
-                      {item.category}
-                    </span>
-                  </div>
                 </button>
               );
             })}
@@ -161,6 +156,7 @@ export function Portfolio() {
                   ref={videoRef}
                   src={getEmbedUrl(works[openIndex].cloudinaryUrl)}
                   loop
+                  autoPlay
                   playsInline
                   preload="metadata"
                   onLoadedData={() => setVideoLoading(false)}

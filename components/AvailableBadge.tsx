@@ -5,7 +5,7 @@ export function AvailableBadge() {
         <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[var(--color-status-online)] opacity-75" />
         <span className="relative inline-flex h-2 w-2 rounded-full bg-[var(--color-status-online)]" />
       </span>
-      Available for work &mdash; May 2026
+      Available for work &mdash; 2026
     </div>
   );
 }

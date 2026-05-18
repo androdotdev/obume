@@ -61,7 +61,7 @@ export function Hero() {
           >
             <span>Trusted by creators</span>
             <span className="hidden sm:block h-1 w-1 rounded-full bg-muted-foreground/30" />
-            <span>10M+ views edited</span>
+            <span>2M+ views edited</span>
             <span className="hidden sm:block h-1 w-1 rounded-full bg-muted-foreground/30" />
             <span>48h turnaround</span>
           </div>
