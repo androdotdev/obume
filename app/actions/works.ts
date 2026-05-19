@@ -15,15 +15,11 @@ export async function getWorks() {
 }
 
 export async function createWork(data: {
-  category: string;
-  cloudinaryUrl?: string;
-  cloudinaryPublicId?: string;
+  youtubeVideoId: string;
 }) {
   try {
     const [newWork] = await db.insert(works).values({
-      category: data.category,
-      cloudinaryUrl: data.cloudinaryUrl,
-      cloudinaryPublicId: data.cloudinaryPublicId,
+      youtubeVideoId: data.youtubeVideoId,
     }).returning();
 
     return { success: true, work: newWork };
@@ -34,9 +30,7 @@ export async function createWork(data: {
 }
 
 export async function updateWork(id: number, data: Partial<{
-  category: string;
-  cloudinaryUrl: string;
-  cloudinaryPublicId: string;
+  youtubeVideoId: string;
   order: number;
 }>) {
   try {

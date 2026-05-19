@@ -10,9 +10,7 @@ export const users = pgTable("users", {
 
 export const works = pgTable("works", {
   id: serial("id").primaryKey(),
-  category: varchar("category", { length: 100 }).notNull(),
-  cloudinaryUrl: varchar("cloudinary_url", { length: 500 }),
-  cloudinaryPublicId: varchar("cloudinary_public_id", { length: 255 }),
+  youtubeVideoId: varchar("youtube_video_id", { length: 50 }).notNull(),
   order: integer("order").default(0),
   createdAt: timestamp("created_at").defaultNow(),
 });

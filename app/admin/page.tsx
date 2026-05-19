@@ -5,19 +5,14 @@ import {
   createWork,
   deleteWork,
   getWorks,
-  updateWork,
 } from "@/app/actions/works";
 import { QuickLinks, UploadForm, WorksList } from "./components";
-import { Work, UploadedFile } from "./types";
+import { Work } from "./types";
 
 export default function AdminDashboard() {
   const [works, setWorks] = useState<Work[]>([]);
   const [loading, setLoading] = useState(true);
-  const [uploading, setUploading] = useState(false);
-  const [category, setCategory] = useState("");
-  const [uploadedFile, setUploadedFile] = useState<UploadedFile | null>(null);
-  const [editingId, setEditingId] = useState<number | null>(null);
-  const [editingValue, setEditingValue] = useState("");
+  const [deleting, setDeleting] = useState<number | null>(null);
 
   useEffect(() => {
     fetchWorks();
@@ -29,58 +24,23 @@ export default function AdminDashboard() {
     setLoading(false);
   };
 
-  const handleCreateWork = async () => {
-    if (!category.trim()) return alert("Please enter a category.");
-    if (!uploadedFile) return alert("Please upload a video first.");
+  const handleCreateWork = async (youtubeVideoId: string) => {
+    if (!youtubeVideoId.trim()) return alert("Please enter a YouTube video ID.");
 
-    setUploading(true);
-    try {
-      const res = await createWork({
-        category,
-        cloudinaryUrl: uploadedFile.url,
-        cloudinaryPublicId: uploadedFile.publicId,
-      });
-      if (res.success) {
-        await fetchWorks();
-        setCategory("");
-        setUploadedFile(null);
-      }
-    } catch (err) {
-      console.error(err);
+    const res = await createWork({ youtubeVideoId: youtubeVideoId.trim() });
+    if (res.success) {
+      await fetchWorks();
+    } else {
       alert("Failed to save work. Please try again.");
-    } finally {
-      setUploading(false);
     }
   };
 
   const handleDelete = async (id: number) => {
     if (!confirm("Delete this work?")) return;
+    setDeleting(id);
     await deleteWork(id);
-    fetchWorks();
-  };
-
-  const handleStartEdit = (work: Work) => {
-    setEditingId(work.id);
-    setEditingValue(work.category);
-  };
-
-  const handleCancelEdit = () => {
-    setEditingId(null);
-    setEditingValue("");
-  };
-
-  const handleSaveEdit = async (id: number, categoryValue: string) => {
-    if (!categoryValue.trim()) return;
-    const res = await updateWork(id, { category: categoryValue.trim() });
-    if (res.success) {
-      setWorks((prev) =>
-        prev.map((w) =>
-          w.id === id ? { ...w, category: categoryValue.trim() } : w,
-        ),
-      );
-    }
-    setEditingId(null);
-    setEditingValue("");
+    await fetchWorks();
+    setDeleting(null);
   };
 
   if (loading)
@@ -88,25 +48,13 @@ export default function AdminDashboard() {
 
   return (
     <div className="space-y-6">
-      <UploadForm
-        uploadedFile={uploadedFile}
-        category={category}
-        uploading={uploading}
-        onFileUpload={setUploadedFile}
-        onCategoryChange={setCategory}
-        onSubmit={handleCreateWork}
-      />
+      <UploadForm onSubmit={handleCreateWork} />
 
       <WorksList
         works={works}
-        editingId={editingId}
-        editingValue={editingValue}
+        deleting={deleting}
         onReorder={setWorks}
         onDelete={handleDelete}
-        onStartEdit={handleStartEdit}
-        onCancelEdit={handleCancelEdit}
-        onEditValueChange={setEditingValue}
-        onSaveEdit={handleSaveEdit}
       />
 
       <QuickLinks />

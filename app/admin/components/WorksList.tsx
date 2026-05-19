@@ -16,33 +16,23 @@ import {
   arrayMove,
 } from "@dnd-kit/sortable";
 import { debounce } from "lodash-es";
-import { FiMenu } from "react-icons/fi";
+import { GripVertical } from "lucide-react";
 import { Work } from "../types";
 import { WorkItem } from "./WorkItem";
 import { updateWork } from "@/app/actions/works";
 
 interface WorksListProps {
   works: Work[];
-  editingId: number | null;
-  editingValue: string;
+  deleting: number | null;
   onReorder: (works: Work[]) => void;
   onDelete: (id: number) => void;
-  onStartEdit: (work: Work) => void;
-  onCancelEdit: () => void;
-  onEditValueChange: (value: string) => void;
-  onSaveEdit: (id: number, category: string) => void;
 }
 
 export function WorksList({
   works,
-  editingId,
-  editingValue,
+  deleting,
   onReorder,
   onDelete,
-  onStartEdit,
-  onCancelEdit,
-  onEditValueChange,
-  onSaveEdit,
 }: WorksListProps) {
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -87,7 +77,7 @@ export function WorksList({
         </h2>
         {works.length > 1 && (
           <span className="text-xs text-slate-500 flex items-center gap-1">
-            <FiMenu className="inline" /> Drag to reorder
+            <GripVertical size={15} className="inline" /> Drag to reorder
           </span>
         )}
       </div>
@@ -108,21 +98,7 @@ export function WorksList({
           >
             <div className="space-y-2">
               {works.map((work) => (
-                <WorkItem
-                  key={work.id}
-                  work={work}
-                  isEditing={editingId === work.id}
-                  editingValue={editingValue}
-                  onEdit={() => onStartEdit(work)}
-                  onDelete={() => onDelete(work.id)}
-                  onSaveEdit={() => onSaveEdit(work.id, editingValue)}
-                  onCancelEdit={onCancelEdit}
-                  onEditValueChange={onEditValueChange}
-                  onEditKeyDown={(e) => {
-                    if (e.key === "Enter") onSaveEdit(work.id, editingValue);
-                    if (e.key === "Escape") onCancelEdit();
-                  }}
-                />
+                <WorkItem key={work.id} work={work} deleting={deleting === work.id} onDelete={() => onDelete(work.id)} />
               ))}
             </div>
           </SortableContext>

@@ -1,35 +1,19 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
-import { Play, X, Loader2 } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Play, X } from "lucide-react";
 import { getWorks } from "@/app/actions/works";
 
 interface Work {
   id: number;
-  category: string;
-  cloudinaryUrl: string | null;
-  cloudinaryPublicId: string | null;
-}
-
-function getThumbnail(url: string | null): string {
-  if (!url) return "";
-  return url
-    .replace("/video/upload/", "/video/upload/w_400,q_auto,f_auto/")
-    .replace(/\.[^/.]+$/, ".jpg");
-}
-
-function getEmbedUrl(url: string | null): string {
-  if (!url) return "";
-  return url.replace("/video/upload/", "/video/upload/w_400,q_auto/");
+  youtubeVideoId: string;
 }
 
 export function Portfolio() {
   const [works, setWorks] = useState<Work[]>([]);
   const [loading, setLoading] = useState(true);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
-  const [videoLoading, setVideoLoading] = useState(false);
-  const [playing, setPlaying] = useState(false);
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set());
 
   useEffect(() => {
     getWorks().then((data) => {
@@ -38,26 +22,7 @@ export function Portfolio() {
     });
   }, []);
 
-  useEffect(() => {
-    if (openIndex === null) {
-      setPlaying(false);
-      setVideoLoading(false);
-    } else {
-      setVideoLoading(true);
-      setPlaying(false);
-    }
-  }, [openIndex]);
-
-  const togglePlay = () => {
-    if (!videoRef.current) return;
-    if (videoRef.current.paused) {
-      videoRef.current.play();
-      setPlaying(true);
-    } else {
-      videoRef.current.pause();
-      setPlaying(false);
-    }
-  };
+  const openWork = works[openIndex ?? -1];
 
   return (
     <section id="work" className="py-28 relative">
@@ -95,41 +60,47 @@ export function Portfolio() {
           </div>
         ) : (
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
-            {works.map((item, i) => {
-              const thumb = getThumbnail(item.cloudinaryUrl);
-              return (
-                <button
-                  key={item.id}
-                  onClick={() => setOpenIndex(i)}
-                  className="group relative aspect-[9/16] overflow-hidden rounded-2xl bg-card border border-border/50 hover:border-primary/50 transition-all duration-500"
-                >
-                  {thumb ? (
-                    <img
-                      src={thumb}
-                      alt={item.category}
-                      loading={i === 0 ? "eager" : "lazy"}
-                      fetchPriority={i === 0 ? "high" : undefined}
-                      className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-                    />
-                  ) : (
-                    <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary grid place-items-center">
-                      <Play className="h-10 w-10 text-primary/50" />
-                    </div>
-                  )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent opacity-90 group-hover:opacity-100 transition-opacity" />
-                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500">
-                    <div className="h-14 w-14 md:h-16 md:w-16 rounded-full bg-gradient-primary grid place-items-center shadow-glow scale-75 group-hover:scale-100 transition-transform">
-                      <Play className="h-6 w-6 text-primary-foreground fill-primary-foreground ml-0.5" />
-                    </div>
+            {works.map((item, i) => (
+              <button
+                key={item.id}
+                onClick={() => setOpenIndex(i)}
+                className="group relative aspect-[9/16] overflow-hidden rounded-2xl bg-card border border-border/50 hover:border-primary/50 transition-all duration-500"
+              >
+                {!loadedImages.has(item.id) && (
+                  <div className="absolute inset-0 animate-pulse bg-card z-10" />
+                )}
+                <img
+                  src={`https://img.youtube.com/vi/${item.youtubeVideoId}/maxresdefault.jpg`}
+                  alt=""
+                  loading={i === 0 ? "eager" : "lazy"}
+                  fetchPriority={i === 0 ? "high" : undefined}
+                  onLoad={() => setLoadedImages(prev => new Set(prev).add(item.id))}
+                  onError={(e) => {
+                    const img = e.target as HTMLImageElement;
+                    if (!img.dataset.fallback) {
+                      img.dataset.fallback = "1";
+                      img.src = `https://img.youtube.com/vi/${item.youtubeVideoId}/hqdefault.jpg`;
+                    } else {
+                      setLoadedImages(prev => new Set(prev).add(item.id));
+                    }
+                  }}
+                  className={`absolute inset-0 h-full w-full object-cover transition-all duration-700 group-hover:scale-110 ${
+                    loadedImages.has(item.id) ? "opacity-100" : "opacity-0"
+                  }`}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent opacity-90 group-hover:opacity-100 transition-opacity" />
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500">
+                  <div className="h-14 w-14 md:h-16 md:w-16 rounded-full bg-gradient-primary grid place-items-center shadow-glow scale-75 group-hover:scale-100 transition-transform">
+                    <Play className="h-6 w-6 text-primary-foreground fill-primary-foreground ml-0.5" />
                   </div>
-                </button>
-              );
-            })}
+                </div>
+              </button>
+            ))}
           </div>
         )}
       </div>
 
-      {openIndex !== null && (
+      {openIndex !== null && openWork && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4"
           onClick={() => setOpenIndex(null)}
@@ -145,52 +116,13 @@ export function Portfolio() {
               <X className="h-4 w-4" />
             </button>
 
-            {works[openIndex]?.cloudinaryUrl ? (
-              <div className="aspect-[9/16] relative">
-                {videoLoading && (
-                  <div className="absolute inset-0 bg-black flex items-center justify-center z-10">
-                    <Loader2 className="h-8 w-8 text-primary animate-spin" />
-                  </div>
-                )}
-                <video
-                  ref={videoRef}
-                  src={getEmbedUrl(works[openIndex].cloudinaryUrl)}
-                  loop
-                  autoPlay
-                  playsInline
-                  preload="metadata"
-                  onLoadedData={() => setVideoLoading(false)}
-                  onClick={togglePlay}
-                  className="absolute inset-0 h-full w-full object-contain bg-black cursor-pointer"
-                />
-                {playing && (
-                  <div
-                    className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-0 transition-opacity duration-300"
-                    style={{
-                      opacity: playing ? 0 : 1,
-                    }}
-                  />
-                )}
-              </div>
-            ) : (
-              <div className="aspect-[9/16] relative bg-card grid place-items-center">
-                <div className="text-center space-y-3 px-6">
-                  <div className="h-16 w-16 rounded-full bg-gradient-primary grid place-items-center mx-auto shadow-glow">
-                    <Play className="h-7 w-7 text-primary-foreground fill-primary-foreground ml-0.5" />
-                  </div>
-                  <p className="text-sm text-muted-foreground">
-                    Full preview available on request
-                  </p>
-                  <a
-                    href="#contact"
-                    onClick={() => setOpenIndex(null)}
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-foreground text-background text-sm font-medium"
-                  >
-                    Request portfolio &rarr;
-                  </a>
-                </div>
-              </div>
-            )}
+            <div className="aspect-[9/16] relative bg-black">
+              <iframe
+                src={`https://www.youtube.com/embed/${openWork.youtubeVideoId}?autoplay=1&loop=1&playlist=${openWork.youtubeVideoId}&controls=0&rel=0&playsinline=1`}
+                allow="autoplay; fullscreen"
+                className="absolute inset-0 h-full w-full"
+              />
+            </div>
           </div>
         </div>
       )}

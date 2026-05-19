@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { FaArrowLeft } from "react-icons/fa";
+import { ArrowLeft } from "lucide-react";
 
 interface HeaderProps {
   title: string;
@@ -17,7 +17,7 @@ export function Header({ title, backHref, subtitle, rightElement }: HeaderProps)
         href={backHref}
         className="inline-flex items-center gap-2 px-5 py-3 rounded-[14px] border border-white/[0.07] bg-white/4 text-[#64748B] text-[14px] md:text-[13px] no-underline transition-all duration-220 hover:bg-purple-500/10 hover:border-purple-500/30 hover:text-purple-400"
       >
-        <FaArrowLeft className="text-[11px]" />
+        <ArrowLeft size={15} />
         <span>Back</span>
       </Link>
 

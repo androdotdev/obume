@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { FaFileContract } from "react-icons/fa6";
+import { FileText } from "lucide-react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Accordion } from "@/components/ui/Accordion";
@@ -151,7 +151,7 @@ export default function Services() {
             href="/terms"
             className="inline-flex items-center gap-2 px-5 py-3 rounded-[14px] border border-purple-500/30 bg-purple-500/10 text-purple-400 text-[14px] md:text-[13px] no-underline transition-all duration-220 hover:bg-purple-500/20"
           >
-            <FaFileContract className="text-[11px]" />
+            <FileText size={15} />
             <span>Terms & Conditions</span>
           </Link>
         </div>
